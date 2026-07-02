@@ -1,0 +1,134 @@
+===== 开始任务 a4eee6a0-3d99-11f1-8a2c-10f60a1f8564 =====
+步骤1：调用 PreTools.produce() 生成 CDS 文件...
+❌ 步骤1失败：module 'config' has no attribute 'SAMPLE_PRE_PATH'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 89, in run
+    pre = PreTools(self.source_name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 9, in __init__
+    self.result_path = config.SAMPLE_PRE_PATH          # 需在 config 中定义
+                       ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'config' has no attribute 'SAMPLE_PRE_PATH'
+
+尝试创建模拟 CDS 文件以继续流程...
+已创建模拟 CDS 文件。
+步骤2：运行特征提取 Tools.task()...
+❌ 步骤2失败：'Tools' object has no attribute 'init1'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 125, in run
+    t1 = Tools(cds_file, self.names, self.index_col, fasta_file, feature_csv)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 34, in __init__
+    self.mySeries = self.init1()
+                    ^^^^^^^^^^
+AttributeError: 'Tools' object has no attribute 'init1'
+
+===== 开始任务 e0220c24-3d99-11f1-a034-10f60a1f8564 =====
+步骤1：调用 PreTools.produce() 生成 CDS 文件...
+❌ 步骤1失败：module 'config' has no attribute 'SAMPLE_PRE_PATH'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 89, in run
+    pre = PreTools(self.source_name)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 9, in __init__
+    self.result_path = config.SAMPLE_PRE_PATH          # 需在 config 中定义
+                       ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'config' has no attribute 'SAMPLE_PRE_PATH'
+
+尝试创建模拟 CDS 文件以继续流程...
+已创建模拟 CDS 文件。
+步骤2：运行特征提取 Tools.task()...
+❌ 步骤2失败：'Tools' object has no attribute 'init1'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 125, in run
+    t1 = Tools(cds_file, self.names, self.index_col, fasta_file, feature_csv)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 34, in __init__
+    self.mySeries = self.init1()
+                    ^^^^^^^^^^
+AttributeError: 'Tools' object has no attribute 'init1'
+
+===== 开始任务 c9b7e483-3d9a-11f1-b12a-10f60a1f8564 =====
+步骤1：调用 PreTools.produce() 生成 CDS 文件...
+❌ 步骤1失败：Command 'txCdsPredict D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_old/c9b7e483-3d9a-11f1-b12a-10f60a1f8564.fasta D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_pre/c9b7e483-3d9a-11f1-b12a-10f60a1f8564.cds' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 176, in run
+    pre.run()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 125, in run
+    self.produce()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 122, in produce
+    subprocess.run(cmdline, shell=True, check=True)
+  File "D:\python311\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'txCdsPredict D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_old/c9b7e483-3d9a-11f1-b12a-10f60a1f8564.fasta D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_pre/c9b7e483-3d9a-11f1-b12a-10f60a1f8564.cds' returned non-zero exit status 1.
+
+尝试创建模拟 CDS 文件以继续流程...
+已创建模拟 CDS 文件。
+步骤2：运行特征提取 Tools.task()...
+❌ 步骤2失败：unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 209, in run
+    t1.run()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 108, in run
+    self.task()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 100, in task
+    Rna_f.loc[index, 'cdsSizes'] = row["end"] - row["start"]
+                                   ~~~~~~~~~~~^~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+===== 开始任务 dbb1b8e8-3d9a-11f1-abe2-10f60a1f8564 =====
+步骤1：调用 PreTools.produce() 生成 CDS 文件...
+❌ 步骤1失败：Command 'txCdsPredict D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_old/dbb1b8e8-3d9a-11f1-abe2-10f60a1f8564.fasta D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_pre/dbb1b8e8-3d9a-11f1-abe2-10f60a1f8564.cds' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 176, in run
+    pre.run()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 125, in run
+    self.produce()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 122, in produce
+    subprocess.run(cmdline, shell=True, check=True)
+  File "D:\python311\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'txCdsPredict D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_old/dbb1b8e8-3d9a-11f1-abe2-10f60a1f8564.fasta D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_pre/dbb1b8e8-3d9a-11f1-abe2-10f60a1f8564.cds' returned non-zero exit status 1.
+
+尝试创建模拟 CDS 文件以继续流程...
+已创建模拟 CDS 文件。
+步骤2：运行特征提取 Tools.task()...
+❌ 步骤2失败：unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 209, in run
+    t1.run()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 108, in run
+    self.task()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 100, in task
+    Rna_f.loc[index, 'cdsSizes'] = row["end"] - row["start"]
+                                   ~~~~~~~~~~~^~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+
+===== 开始任务 2415c59a-3d9b-11f1-982b-10f60a1f8564 =====
+步骤1：调用 PreTools.produce() 生成 CDS 文件...
+❌ 步骤1失败：Command 'txCdsPredict D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_old/2415c59a-3d9b-11f1-982b-10f60a1f8564.fasta D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_pre/2415c59a-3d9b-11f1-982b-10f60a1f8564.cds' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 176, in run
+    pre.run()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 125, in run
+    self.produce()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 122, in produce
+    subprocess.run(cmdline, shell=True, check=True)
+  File "D:\python311\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'txCdsPredict D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_old/2415c59a-3d9b-11f1-982b-10f60a1f8564.fasta D:\计算机设计\2025013146-网站素材与源码\gao/data/sample_pre/2415c59a-3d9b-11f1-982b-10f60a1f8564.cds' returned non-zero exit status 1.
+
+尝试创建模拟 CDS 文件以继续流程...
+已创建模拟 CDS 文件。
+步骤2：运行特征提取 Tools.task()...
+❌ 步骤2失败：unsupported operand type(s) for -: 'str' and 'str'
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 209, in run
+    t1.run()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 108, in run
+    self.task()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 100, in task
+    Rna_f.loc[index, 'cdsSizes'] = row["end"] - row["start"]
+                                   ~~~~~~~~~~~^~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for -: 'str' and 'str'
+

@@ -1,0 +1,388 @@
+{% extends 'front/base.html' %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    PHSGA-DA Predict
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='front/assets/js/batch.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="pt-200 pb-30">
+    <div class="container">
+        <!-- 标题区 -->
+        <div class="predict-header">
+            <h1>Plant heat stress-responsive gene recognition</h1>
+            <p class="predict-subtitle">Upload FASTA file or paste sequences directly</p>
+        </div>
+
+        <!-- 模式切换 Tab -->
+        <div class="predict-tabs">
+            <button class="tab-btn active" id="tab-species" data-mode="species">
+                <i class="fas fa-dna"></i> Species-specific Prediction
+            </button>
+            <button class="tab-btn" id="tab-general" data-mode="general">
+                <i class="fas fa-globe"></i> General Prediction
+            </button>
+        </div>
+
+        <!-- ========= 物种特异性预测面板 ========= -->
+        <div id="panel-species" class="predict-panel active">
+            <div class="card">
+                <!-- 物种选择 -->
+                <div class="form-group">
+                    <label class="form-label">Species selection</label>
+                    <select id="species_select" class="form-select">
+                        <option value="">-- Select a species --</option>
+                        <option value="Glycine">Glycine</option>
+                        <option value="Zea">Zea</option>
+                        <option value="Vitis">Vitis</option>
+                        <option value="Sorghum">Sorghum</option>
+                        <option value="Triticum">Triticum</option>
+                    </select>
+                </div>
+
+                <!-- 文件上传 + 序列输入 -->
+                <div class="form-group">
+                    <div class="file-import-row">
+                        <button type="button" class="btn-import" id="importFileSpecies">
+                            <i class="fas fa-file-upload"></i> Import File
+                        </button>
+                        <span class="file-hint">Support .fasta format</span>
+                        <input type="file" id="file_upload_species" accept=".fasta" style="display:none;">
+                    </div>
+                    <label class="form-label">Input Sequence (FASTA format)</label>
+                    <textarea id="sequence_species" class="form-textarea" placeholder="Paste FASTA sequence here..."></textarea>
+                </div>
+
+                <!-- 示例 -->
+                <div class="example-box">
+                    <h4>Example</h4>
+                    <pre>>Glyma.07G170800
+MAREYEGCAVGIDLGTTYSCVAVWLEQHCRVEIIHNDQGNNTTPSCVAFTDHQRLIGEAAKNQ</pre>
+                </div>
+
+                <!-- 操作按钮 -->
+                <button type="button" class="btn-submit" id="submitSpecies">
+                    <i class="fas fa-play"></i> Submit
+                </button>
+
+                <!-- 检索区域 -->
+                <div class="retrieve-box">
+                    <label class="form-label">Retrieve by Task ID</label>
+                    <div class="retrieve-input-group">
+                        <input type="text" id="taskid_species" class="form-input" placeholder="Paste task ID">
+                        <button type="button" class="btn-retrieve" id="retrieveSpecies">
+                            <i class="fas fa-search"></i> Browse
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 提示消息区 -->
+                <div id="alert_species" class="alert-container"></div>
+            </div>
+        </div>
+
+        <!-- ========= 通用预测面板 ========= -->
+        <div id="panel-general" class="predict-panel">
+            <div class="card">
+                <!-- 文件上传 + 序列输入 -->
+                <div class="form-group">
+                    <div class="file-import-row">
+                        <button type="button" class="btn-import" id="importFileGeneral">
+                            <i class="fas fa-file-upload"></i> Import File
+                        </button>
+                        <span class="file-hint">Support .fasta format</span>
+                        <input type="file" id="file_upload_general" accept=".fasta" style="display:none;">
+                    </div>
+                    <label class="form-label">Input Sequence (FASTA format)</label>
+                    <textarea id="sequence_general" class="form-textarea" placeholder="Paste FASTA sequence here..."></textarea>
+                </div>
+
+                <!-- 示例 -->
+                <div class="example-box">
+                    <h4>Example</h4>
+                    <pre>>AT1G67920.1
+MENKTDNGNEDGPIIHSQVEKIKKEFEKIRQPSLQQPEMRRVLSEIKRRQRSRSPLGLGERSISVGN</pre>
+                </div>
+
+                <!-- 操作按钮 -->
+                <button type="button" class="btn-submit" id="submitGeneral">
+                    <i class="fas fa-play"></i> Submit
+                </button>
+
+                <!-- 检索区域 -->
+                <div class="retrieve-box">
+                    <label class="form-label">Retrieve by Task ID</label>
+                    <div class="retrieve-input-group">
+                        <input type="text" id="taskid_general" class="form-input" placeholder="Paste task ID">
+                        <button type="button" class="btn-retrieve" id="retrieveGeneral">
+                            <i class="fas fa-search"></i> Browse
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 提示消息区 -->
+                <div id="alert_general" class="alert-container"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 自定义样式（模拟 index-3/4 风格） -->
+<style>
+    .predict-section {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #f0fdf4 0%, #ffffff 100%);
+        padding: 120px 20px 60px;
+    }
+    .predict-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    .predict-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    .predict-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 8px;
+    }
+    .predict-subtitle {
+        color: #4b5563;
+        font-size: 1.1rem;
+    }
+    .predict-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 10px;
+    }
+    .tab-btn {
+        padding: 10px 24px;
+        font-weight: 600;
+        border: none;
+        background: transparent;
+        color: #6b7280;
+        border-radius: 30px 30px 0 0;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 1rem;
+    }
+    .tab-btn i {
+        margin-right: 8px;
+    }
+    .tab-btn.active {
+        background: #16a34a;
+        color: white;
+    }
+    .tab-btn:hover:not(.active) {
+        background: #dcfce7;
+        color: #166534;
+    }
+    .predict-panel {
+        display: none;
+    }
+    .predict-panel.active {
+        display: block;
+    }
+    .card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+        padding: 32px;
+    }
+    .form-group {
+        margin-bottom: 24px;
+    }
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    .form-select, .form-input, .form-textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: border 0.2s, box-shadow 0.2s;
+        background: white;
+    }
+    .form-select:focus, .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: #16a34a;
+        box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+    }
+    .form-textarea {
+        min-height: 180px;
+        font-family: 'Courier New', monospace;
+        resize: vertical;
+    }
+    .file-import-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    .btn-import {
+        background: #16a34a;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-size: 0.95rem;
+    }
+    .btn-import i {
+        margin-right: 6px;
+    }
+    .btn-import:hover {
+        background: #15803d;
+    }
+    .file-hint {
+        color: #6b7280;
+        font-size: 0.9rem;
+    }
+    .example-box {
+        background: #f9fafb;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 24px;
+    }
+    .example-box h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #4b5563;
+        margin-bottom: 8px;
+    }
+    .example-box pre {
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-break: break-all;
+        color: #1f2937;
+        margin: 0;
+    }
+    .btn-submit {
+        width: 100%;
+        background: #16a34a;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 40px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-bottom: 30px;
+    }
+    .btn-submit i {
+        margin-right: 8px;
+    }
+    .btn-submit:hover {
+        background: #15803d;
+    }
+    .retrieve-box {
+        border-top: 1px solid #e5e7eb;
+        padding-top: 24px;
+    }
+    .retrieve-input-group {
+        display: flex;
+        gap: 10px;
+    }
+    .form-input {
+        flex: 1;
+    }
+    .btn-retrieve {
+        background: #198754;
+        color: white;
+        border: none;
+        padding: 0 24px;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+        white-space: nowrap;
+    }
+    .btn-retrieve:hover {
+        background: #146c43;
+    }
+    .alert-container {
+        margin-top: 20px;
+    }
+    .alert {
+        padding: 12px 18px;
+        border-radius: 12px;
+        margin-bottom: 0;
+    }
+    .alert-success {
+        background: #dcfce7;
+        color: #166534;
+        border-left: 6px solid #16a34a;
+    }
+    .alert-danger {
+        background: #fee2e2;
+        color: #991b1b;
+        border-left: 6px solid #dc2626;
+    }
+    .alert a {
+        color: #2563eb;
+        text-decoration: underline;
+        font-weight: 500;
+    }
+    /* 响应式 */
+    @media (max-width: 640px) {
+        .predict-header h1 { font-size: 1.8rem; }
+        .card { padding: 20px; }
+        .retrieve-input-group { flex-direction: column; }
+    }
+</style>
+
+<!-- Tab 切换逻辑（内嵌，也可放入 batch.js） -->
+<script>
+    (function() {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panelSpecies = document.getElementById('panel-species');
+        const panelGeneral = document.getElementById('panel-general');
+
+        function switchTab(mode) {
+            tabs.forEach(btn => {
+                if (btn.dataset.mode === mode) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            if (mode === 'species') {
+                panelSpecies.classList.add('active');
+                panelGeneral.classList.remove('active');
+            } else {
+                panelGeneral.classList.add('active');
+                panelSpecies.classList.remove('active');
+            }
+        }
+
+        document.getElementById('tab-species').addEventListener('click', () => switchTab('species'));
+        document.getElementById('tab-general').addEventListener('click', () => switchTab('general'));
+
+        // 文件导入按钮联动
+        document.getElementById('importFileSpecies').addEventListener('click', () => {
+            document.getElementById('file_upload_species').click();
+        });
+        document.getElementById('importFileGeneral').addEventListener('click', () => {
+            document.getElementById('file_upload_general').click();
+        });
+    })();
+</script>
+{% endblock %}

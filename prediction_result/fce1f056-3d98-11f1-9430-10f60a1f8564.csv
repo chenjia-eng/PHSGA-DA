@@ -1,0 +1,4 @@
+id,Label,Coding probability / 0,Non-coding probability / 1
+seq1,coding,0.98,0.02
+seq2,Non-coding,0.15,0.85
+seq3,coding,0.76,0.24

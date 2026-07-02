@@ -1,0 +1,273 @@
+{% extends 'front/base.html' %}
+{% from "common/_macros.html" import static %}
+
+
+{% block title %}
+    SPT-IFL DOWNLOAD
+{% endblock %}
+
+
+{% block content %}
+
+<section class="pt-200 pb-30">
+                <div class="container">
+                    <div class="row">
+                        <div class="container">
+                            <div class="row">
+                                <div>
+                                    <div class="main__form2 main__form-2">
+                                        <div class="main__form-content table-responsive">
+                                            <h3>
+                                                1. How to install SPT-IFL
+                                            </h3>
+                                            <h4>1. Run SPT-IFL  from docker (Locally、Simply)</h4>
+                                            <hr>
+                                            <h5>1.1.1. Make sure the machine contains a <a href="https://www.docker.com/get-started/" style="color:blue">Docker</a> environment.</h5>
+                                            <hr>
+                                            <h5>1.1.2. Download the SPT-IFL and Add the data file to the project directory</h5>
+                                            <div>
+                                                <code class="code-css">
+                                                    git https://github.com/wertabc/SPT-IFL
+                                                </code>
+                                                <code class="code-css">
+                                                    cd SPT-IFL
+                                                </code>
+                                                <code class="code-css">
+                                                    # upload the data file (example: data.fasta)
+                                                </code>
+                                            </div>
+                                            <hr>
+                                            <h5>1.1.3. Pull and build the environment image. (Time required)</h5>
+
+                                            <div>
+                                                <code class="code-css">
+                                                    sudo docker build -t pinc_images .
+                                                </code>
+                                            </div>
+                                           <hr>
+                                            <h5>1.1.4. Create and Enter a new container.</h5>
+
+                                            <div>
+                                                <code class="code-css">
+                                                    sudo docker run -it pinc_images bash
+                                                </code>
+                                            </div>
+                                           <hr>
+                                            <h5>1.1.5. Execute SPT-IFL for prediction.</h5>
+
+                                            <div>
+                                                <code class="code-css">
+                                                    python pinc.py -f data.fasta
+                                                </code>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <h4>1.2. Run SPT-IFL from source code (Complex)</h4>
+                                            <hr>
+                                            <h5>1.2.1. Installation Environment(<a href="https://github.com/awslabs/autogluon" style="color:blue">Autogluon</a>、<a
+                                                    href="https://github.com/ENCODE-DCC/kentUtils" style="color:blue">kentUtils</a>).</h5>
+                                            <hr>
+                                            <h5>1.2.2. Clone project, install related dependencies.</h5>
+                                            <div>
+                                                <code class="code-css">
+                                                    git clone https://github.com/wertabc/SPT-IFL
+                                                </code>
+                                                <code class="code-css">
+                                                    cd SPT-IFL
+
+                                                </code>
+                                                <code class="code-css">
+                                                    pip3 install -r requirements.txt
+                                                </code>
+                                            </div>
+                                            <hr>
+                                            <h5>1.2.3. Execute SPT-IFL for prediction.</h5>
+                                            <code class="code-css">
+                                                python pinc.py -f data.fasta
+                                            </code>
+                                            <br>
+                                            <br>
+{#                                            <h4>2. Download PINC dataset</h4>#}
+{#                                            <hr>#}
+{#                                            <h5>2.1 Training & Test set</h5>#}
+{#                                            <span>#}
+{#                                                The training set dataset of PINC contains protein-coding transcripts and non-coding transcripts of four plants, Arabidopsis thaliana, Glycine max, Oryza sativa, and Vitis vinifera. To verify the generalizability of PINC, we constructed independent test sets of nine plants: Cicer arietinum, Gossypium darwinii, Lactuca sativa, Manihot esculenta, Musa acuminata, Nymphaea colorata, For all data we obtained from four databases, GreeNC, CANTATA, RNAcentral, phytozome.v13, with the transcript status "known". Users can download all the sequences in the training and test sets by following the links below.#}
+{#                                            </span>#}
+{#                                            <br>#}
+{#                                            <br>#}
+{#                                            <hr>#}
+{#                                            <table class="table table-hover download-table" id="table">#}
+{#                                            <thead>#}
+{#                                                <tr>#}
+{#                                                    <th>Animal</th>#}
+{#                                                    <th>mRNAs</th>#}
+{#                                                    <th>LncRNAs</th>#}
+{#                                                    <th>Plant</th>#}
+{#                                                    <th>mRNAs</th>#}
+{#                                                    <th>LncRNAs</th>#}
+{#                                                    <th>Plant</th>#}
+{#                                                    <th>mRNAs</th>#}
+{#                                                    <th>LncRNAs</th>#}
+{#                                                </tr>#}
+{#                                            </thead>#}
+{#                                            <tbody>#}
+{#                                                <tr>#}
+{#                                                    <td>Human (Training set)</td>#}
+{#                                                    <td><a href="./data/animal/coding/Homo_sapiens.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Homo_sapiens.GRCh37.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Arabidopsis thaliana (Training set)</td>#}
+{#                                                    <td><a href="./data/plant/coding/Arabidopsis_thaliana.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Arabidopsis_thaliana.TAIR10.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Musa acuminata</td>#}
+{#                                                    <td><a href="./data/plant/coding/Musa_acuminata.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Musa_acuminata.MA1.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Mouse</td>#}
+{#                                                    <td><a href="./data/animal/coding/Mus_musculus.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Mus_musculus.GRCm38.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Aegilops tauschii</td>#}
+{#                                                    <td><a href="./data/plant/coding/Aegilops_tauschii.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Aegilops_tauschii.ASM34733v1.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Oryza brachyantha</td>#}
+{#                                                    <td><a href="./data/plant/coding/Oryza_brachyantha.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Oryza_brachyantha.Oryza_brachyantha.v1.4b.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Anole lizard</td>#}
+{#                                                    <td><a href="./data/animal/coding/Anolis_carolinensis.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Anolis_carolinensis.AnoCar2.0.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Amborella trichopoda</td>#}
+{#                                                    <td><a href="./data/plant/coding/Amborella_trichopoda.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Amborella_trichopoda.AMTR1.0.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Oryza sativa</td>#}
+{#                                                    <td><a href="./data/plant/coding/Oryza_sativa.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Oryza_sativa.IRGSP-1.0.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Chicken</td>#}
+{#                                                    <td><a href="./data/animal/coding/Gallus_gallus.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Gallus_gallus.Galgal4.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Arabidopsis lyrata</td>#}
+{#                                                    <td><a href="./data/plant/coding/Arabidopsis_lyrata.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Arabidopsis_lyrata.v.1.0.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Physcomitrella patens</td>#}
+{#                                                    <td><a href="./data/plant/coding/Physcomitrella_patens.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Physcomitrella_patens.ASM242v1.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Gorilla</td>#}
+{#                                                    <td><a href="./data/animal/coding/Gorilla_gorilla.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Gorilla_gorilla.gorGor3.1.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Beta vulgaris</td>#}
+{#                                                    <td><a href="./data/plant/coding/Beta_vulgaris.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Beta_vulgaris.RefBeet-1.2.2.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Populus trichocarpa</td>#}
+{#                                                    <td><a href="./data/plant/coding/Populus_trichocarpa.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Populus_trichocarpa.JGI2.0.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Xenopus</td>#}
+{#                                                    <td><a href="./data/animal/coding/Xenopus_tropicalis.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Xenopus_tropicalis.JGI_4.2.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Brachypodium distachyon</td>#}
+{#                                                    <td><a href="./data/plant/coding/Brachypodium_distachyon.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Brachypodium_distachyon.v1.0.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Selaginella moellendorffii</td>#}
+{#                                                    <td><a href="./data/plant/coding/Selaginella_moellendorffii.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Selaginella_moellendorffii.v1.0.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Macaque</td>#}
+{#                                                    <td><a href="./data/animal/coding/Macaca_mulatta.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Macaca_mulatta.MMUL_1.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Brassica napus</td>#}
+{#                                                    <td><a href="./data/plant/coding/Brassica_napus.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Brassica_napus.AST_PRJEB5043_v1.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Setaria italica</td>#}
+{#                                                    <td><a href="./data/plant/coding/Setaria_italica.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Setaria_italica.JGIv2.0.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Chimpanzee</td>#}
+{#                                                    <td><a href="./data/animal/coding/Pan_troglodytes.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Pan_troglodytes.CHIMP2.1.4.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Brassica oleracea</td>#}
+{#                                                    <td><a href="./data/plant/coding/Brassica_oleracea.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Brassica_oleracea.v2.1.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Solanum lycopersicum</td>#}
+{#                                                    <td><a href="./data/plant/coding/Solanum_lycopersicum.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Solanum_lycopersicum.SL2.50.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Lamprey</td>#}
+{#                                                    <td><a href="./data/animal/coding/worm.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/worm.ncrna.fna">Download</a></td>#}
+{#                                                    <td>Brassica rapa</td>#}
+{#                                                    <td><a href="./data/plant/coding/Brassica_rapa.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Brassica_rapa.IVFCAASv1.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Solanum tuberosum</td>#}
+{#                                                    <td><a href="./data/plant/coding/Solanum_tuberosum.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Solanum_tuberosum.SolTub_3.0.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Orangutan</td>#}
+{#                                                    <td><a href="./data/animal/coding/Pongo_abelii.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Pongo_abelii.PPYG2.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Chlamydomonas reinhardtii</td>#}
+{#                                                    <td><a href="./data/plant/coding/Chlamydomonas_reinhardtii.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Chlamydomonas_reinhardtii.v3.1.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Sorghum bicolor</td>#}
+{#                                                    <td><a href="./data/plant/coding/Sorghum_bicolor.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Sorghum_bicolor.Sorghum_bicolor_v2.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td>Zebrafish</td>#}
+{#                                                    <td><a href="./data/animal/coding/Danio_rerio.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/animal/noncoding/Danio_rerio.Zv9.75.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Galdieria sulphuraria</td>#}
+{#                                                    <td><a href="./data/plant/coding/Galdieria_sulphuraria.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Galdieria_sulphuraria.ASM34128v1.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Theobroma cacao</td>#}
+{#                                                    <td><a href="./data/plant/coding/Theobroma_cacao.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Theobroma_cacao.Theobroma_cacao_20110822.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td></td>#}
+{#                                                    <td></td>#}
+{#                                                    <td></td>#}
+{#                                                    <td>Glycine max</td>#}
+{#                                                    <td><a href="./data/plant/coding/Glycine_max.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Glycine_max.V1.0.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Vitis vinifera</td>#}
+{#                                                    <td><a href="./data/plant/coding/Vitis_vinifera.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Vitis_vinifera.IGGP_12x.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                <tr>#}
+{#                                                    <td></td>#}
+{#                                                    <td></td>#}
+{#                                                    <td></td>#}
+{#                                                    <td>Medicago truncatula</td>#}
+{#                                                    <td><a href="./data/plant/coding/Medicago_truncatula.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Medicago_truncatula.MedtrA17_4.0.ncrna.fa">Download</a></td>#}
+{#                                                    <td>Zea mays</td>#}
+{#                                                    <td><a href="./data/plant/coding/Zea_mays.rna.mrna.fna">Download</a></td>#}
+{#                                                    <td><a href="./data/plant/noncoding/Zea_mays.AGPv4.ncrna.fa">Download</a></td>#}
+{#                                                </tr>#}
+{#                                                </tbody>#}
+{#                                            </table>#}
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+{% endblock %}

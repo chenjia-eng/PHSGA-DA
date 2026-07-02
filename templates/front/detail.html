@@ -1,0 +1,125 @@
+{% extends 'front/base.html' %}
+{% from "common/_macros.html" import static %}
+
+{% block title %}
+    PHSGA-DA Result
+{% endblock %}
+
+{% block js %}
+    <script src="{{ url_for('static', filename='front/assets/js/download.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<section class="pt-200 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <div class="main__form2 main__form-2">
+                            <div class="main__form-content">
+
+                                {% if not sample %}
+                                    <h4>Result</h4>
+                                    <div class="col-12 alert alert-danger alert-dismissible fade show" role="alert">
+                                        <strong>Error! </strong>
+                                        The data does not exist or the record is out of date.
+                                        <a href="/" style="color: blue;">Back to Home</a>
+                                    </div>
+
+                                {% elif sample.state == 0 %}
+                                    <h4>Result</h4>
+                                    <div class="col-12 alert alert-info" role="alert">
+                                        The data is being <strong>processed</strong>, please wait...
+                                        <span id="countdown">(auto refresh in <b>5</b>s)</span>
+                                    </div>
+
+                                    <!-- 自动轮询：每 3 秒查一次状态 -->
+                                    <script>
+                                        (function () {
+                                            var taskId = "{{ sample.sample_name }}";
+                                            var seconds = 5;
+
+                                            function tick() {
+                                                seconds--;
+                                                if (seconds <= 0) {
+                                                    // 轮询状态
+                                                    fetch('/api/status/' + taskId)
+                                                        .then(r => r.json())
+                                                        .then(data => {
+                                                            if (data && data.state !== 0) {
+                                                                // 完成或失败都刷新
+                                                                location.reload();
+                                                            } else {
+                                                                seconds = 5;
+                                                                document.querySelector("#countdown b").innerText = seconds;
+                                                            }
+                                                        })
+                                                        .catch(() => {
+                                                            seconds = 5;
+                                                            document.querySelector("#countdown b").innerText = seconds;
+                                                        });
+                                                    return;
+                                                }
+                                                var el = document.querySelector("#countdown b");
+                                                if (el) el.innerText = seconds;
+                                            }
+                                            setInterval(tick, 1000);
+                                        })();
+                                    </script>
+
+                                {% else %}
+                                    <h4>Result</h4>
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <p>Only the first 1 records are displayed, please download the complete results to view.</p>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <button class="m-btn" id="download"
+                                                    style="background-color: #198754; vertical-align: middle; float: right">
+                                                Download the Result
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-20">
+                                        <div class="col-12 table-responsive">
+                                            <table class="table table-hover table-info" id="table"
+                                                   data-id="{{ sample.sample_name }}">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>length</th>
+                                                        <th>Label</th>
+                                                        <th>score</th>
+                                                    </tr>
+                                                    {% if results %}
+                                                        {% for row in results %}
+                                                            <tr>
+                                                                {% for cell in row %}
+                                                                    <td>{{ cell }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        <tr>
+                                                            <td colspan="4" class="text-center">
+                                                                No valid results. Please check your input sequences.
+                                                            </td>
+                                                        </tr>
+                                                    {% endif %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

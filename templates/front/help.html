@@ -1,0 +1,100 @@
+{% extends 'front/base.html' %}
+{% from "common/_macros.html" import static %}
+
+
+{% block title %}
+    PHSGA-DA HELP
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="pt-200 pb-30">
+                <div class="container">
+                    <div class="row">
+                        <div class="container">
+                            <div class="row">
+                                <div>
+                                    <div class="main__form2 main__form-2">
+                                        <div class="main__form-content">
+
+                                            <h4>
+                                                1.Introduction
+                                            </h4>
+                                            <hr>
+                                            PHSGA‑DA is an intelligent platform for identifying plant heat‑stress‑responsive genes.
+
+By integrating multi‑level amino acid encoding features (CKSAAP, PseAAC, CKSAAGP) with Mamba‑gradient‑weighted domain adaptation technology, it can efficiently distinguish whether a plant protein is a heat‑stress‑responsive protein, and supports cross‑species recognition between model plants and non‑model crops.
+                                            
+                                            <br>
+                                            <br>
+                                            <h4>2.PHSGA-DA online input</h4>
+                                            <hr>
+                                                PHIGA‑DA accepts protein sequences in FASTA format.
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h5>2.1 Submission requirements</h5>
+                                            <hr>
+                                            Format:Standard FASTA format.
+                                            Sequence type:Protein amino acid sequences (20 standard letters: A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y).
+                                            Size requirement: Less than 10000 lines in input box and no line limitation in batch model. Maximum allowable upload file size is 50 Mb. 
+                                            Name requirement: Sequence names beginning with ‘>’ symbol are required. 
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h5>2.2 How to submit Protein sequences</h5>
+                                            <hr>
+                                            There are two ways to submit protein sequences:
+                                            <br>
+                                                1) Single/few sequences: Paste FASTA‑formatted protein sequences into the large input box on the predict page, select “Limited Species” or “General Prediction”, and click Submit.
+                                            <br>
+                                                2) Batch sequences: Go to the Predict page, upload a .fasta file, and click Submit. 
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h4>3. PHSGA-DA result output</h4>
+                                            <hr>
+                                            For each input sequence, the system returns:
+                                            ID: The sequence name (the part after > in FASTA).
+                                            Length: The sequence length.
+                                            Label: Positive = heat stress‑responsive gene, Negative = non-heat stress‑responsive gene
+                                            score: Prediction confidence score (ranging from 0 to 1; the closer to 1, the more reliable the prediction result).
+                                            <br>
+                                            <br>
+                                            <h4>4. FAQ</h4>
+                                            <hr>
+                                            <h5>4.1 How to retrieve results</h5>
+                                            <hr>
+                                            When the user input sequence is provided to the network server for calculation, the network server will assign a unique task ID to this request. After the calculation is completed, users can enter the batch page and retrieve their results from the CPC server using the task ID
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h5>4.2 PHSGA-DA What are the functions</h5>
+                                            <hr>
+                                            We trained a model based on the Mamba architecture, using the extracted features as input. It can efficiently identify cross‑species heat‑stress‑responsive genes and demonstrates strong generalization performance.
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <h5>4.3 The framework of the PHSGA-DA</h5>
+                                            <hr>
+                                            <img src="{{ url_for('static', filename='front/assets/images/绘图.png') }}" alt="">
+                                            <br>
+                                            <br>
+                                            <br>
+                                            <br>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+{% endblock %}

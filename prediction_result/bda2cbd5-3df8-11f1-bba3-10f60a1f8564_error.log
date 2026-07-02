@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 237, in run
+    Prediction(self.fasta_file, self.source_name, self.model_path).predict()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 95, in __init__
+    self._load_model()
+  File "D:\计算机设计\2025013146-网站素材与源码\gao\tools\main.py", line 111, in _load_model
+    raise RuntimeError(
+RuntimeError: 加载到的是 state_dict，但代码中未定义模型结构。
+解决方案二选一：
+  1) 训练时使用 torch.save(model, path) 保存完整模型；
+  2) 在此处 import 你训练用的模型类并手动构造，再 load_state_dict。
+例如：
+     from tools.my_net import MyNet
+     self.model = MyNet(input_dim=1325)
+     self.model.load_state_dict(obj)
+

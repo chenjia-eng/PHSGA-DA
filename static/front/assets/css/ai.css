@@ -1,0 +1,74 @@
+.divai {
+  z-index: 1000;
+  visibility: visible;
+  width: 25px;
+  height: 25px;
+  background-image: url("static/front/assets/images/ai/AI.png");
+}
+
+#ai-dialog {
+  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 30px;
+  top: 200px;
+  width: 400px;
+  height: 500px;
+  background-color: rgb(238, 245, 241);
+  border: 1px solid #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  flex-direction: column;
+}
+
+#ai-header {
+  padding: 10px;
+  background-color: #0c863b;
+  border-bottom: 1px solid #0c863b;
+  cursor: move;
+  border-radius: 8px 8px 0 0;
+}
+
+#ai-messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+  color: rgb(233, 245, 224);
+}
+
+#ai-input-container {
+  padding: 7px;
+  border-top: 1px solid #0c863b;
+  text-align: right;
+}
+
+#ai-input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+#ai-close {
+  float: right;
+  cursor: pointer;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  max-width: 80%;
+  color: #ffffff;
+}
+
+.user-message {
+  background-color: #e3f2fd;
+  margin-left: auto;
+}
+
+.bot-message {
+  background-color: #b7e7cb;
+  margin-right: auto;
+}
